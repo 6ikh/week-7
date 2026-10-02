@@ -1,5 +1,4 @@
 import unittest
-import pandas as pd
 from loader import *
 
 class TestLoader(unittest.TestCase):
