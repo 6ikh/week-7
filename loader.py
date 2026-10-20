@@ -46,6 +46,6 @@ if __name__ == "__main__":
 
     locations = ["Museum of Modern Art", "iuyt8765(*&)", "Alaska", "Franklin's Barbecue", "Burj Khalifa"]
 
-    df = build_geo_dataframe(locations)
+    df = build_geo_dataframe(geo,locations)
 
     df.to_csv("./geo_data.csv")
