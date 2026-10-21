@@ -24,16 +24,26 @@ def fetch_location_data(geolocator, loc):
     # Use the geolocator to fetch location data
     try:
         location = geolocator.geocode(loc)
-        # If the location is not found, return None
+        # If the location is not found, return NA values
         if location is None:
-            return None
+            return {
+                "location": loc,
+                "latitude": pd.NA,
+                "longitude": pd.NA,
+                "type": pd.NA
+            }
         # Return a dictionary with the location data
         return {
-            "location": loc, "latitude": location.latitude, "longitude": location.longitude, "type": location.geo_type}
-    except Exception:
-        return None
+            "location": loc, "latitude": location.latitude, "longitude": location.longitude, "type": location.raw.get("type")}
+    except (AttributeError, ValueError, Exception):
+        return {
+                "location": loc,
+                "latitude": pd.NA,
+                "longitude": pd.NA,
+                "type": pd.NA
+            }
 
-def build_geo_dataframe(geolocator, locations):
+def build_geo_dataframe(locations, geolocator):
     """
     Build a pandas DataFrame containing geographical data for a list of locations
     """
@@ -49,6 +59,6 @@ if __name__ == "__main__":
 
     locations = ["Museum of Modern Art", "iuyt8765(*&)", "Alaska", "Franklin's Barbecue", "Burj Khalifa"]
 
-    df = build_geo_dataframe(geo,locations)
+    df = build_geo_dataframe(locations,geo)
 
     df.to_csv("./geo_data.csv")
