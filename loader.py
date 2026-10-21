@@ -21,10 +21,13 @@ def fetch_location_data(geolocator, loc):
     """
     Fetch latitude, longitude, and location type for a given location string
     """
+    # Use the geolocator to fetch location data
     try:
         location = geolocator.geocode(loc)
+        # If the location is not found, return None
         if location is None:
             return None
+        # Return a dictionary with the location data
         return {
             "location": loc, "latitude": location.latitude, "longitude": location.longitude, "type": location.geo_type}
     except Exception:
@@ -34,10 +37,10 @@ def build_geo_dataframe(geolocator, locations):
     """
     Build a pandas DataFrame containing geographical data for a list of locations
     """
-    geo_data = [
-        fetch_location_data(geolocator, loc) for loc in locations
-    ]
+    geo_data = [fetch_location_data(geolocator, loc) for loc in locations]
+    # Filter out None values from the list of dictionaries
     valid_geo_data = [item for item in geo_data if item is not None]
+    # Create a DataFrame from the list of valid location data
     return pd.DataFrame(valid_geo_data)
 
 

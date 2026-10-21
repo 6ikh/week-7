@@ -3,7 +3,9 @@ from loader import *
 
 class TestLoader(unittest.TestCase):
     def test_valid_locations(self):
+        """ Test that valid locations return a non-empty DataFrame """
         geolocator = get_geolocator()
+        # locations variable is defined
         locations = ["Museum of Modern Art","USS Alabama Battleship Memorial Park"]
         return None
 
